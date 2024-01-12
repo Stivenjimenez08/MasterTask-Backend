@@ -3,6 +3,8 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import db from '../db/connection';
 import userRoutes from '../routes/User'
+import authRoutes from '../routes/auth'
+import notesRoutes from '../routes/notes'
 dotenv.config();
 
 class Server{
@@ -11,7 +13,9 @@ class Server{
     private port: string| undefined;
 
     private apiPaths ={
-        User: '/api/user'
+        auth: '/api/auth',
+        user: '/api/user',
+        notes: '/api/notes'
     }
 
     constructor(){
@@ -39,7 +43,9 @@ class Server{
     }
 
     routes(){
-        this.app.use(this.apiPaths.User, userRoutes)
+        this.app.use(this.apiPaths.auth, authRoutes)
+        this.app.use(this.apiPaths.user, userRoutes)
+        this.app.use(this.apiPaths.notes, notesRoutes)
     }
     
     listen(){

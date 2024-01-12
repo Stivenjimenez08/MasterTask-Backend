@@ -1,10 +1,12 @@
 import { Router, Response } from "express";
-import { createNote, cosultNotes, updateNote} from "../controllers/notes";
+import { createNote, cosultNotesById, cosultNotes, updateNote, deleteNote} from "../controllers/notes";
 const router = Router();
 
-router.get('/consultNote/:id', cosultNotes);
+router.get('/consultNoteById/:id', cosultNotesById);
+router.get('/consultNoteByUser', cosultNotes);
 router.post('/createNote', createNote);
 router.put('/updateNote', updateNote);
+router.delete('/deleteNote', deleteNote);
 
 router.get('*', ( res: Response ) => {
     

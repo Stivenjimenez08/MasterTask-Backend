@@ -1,6 +1,7 @@
 import {  DataTypes } from 'sequelize';
 import db from '../db/connection';
 import user from './user'
+import label from './label'
 
 const notes = db.define('note',{
     

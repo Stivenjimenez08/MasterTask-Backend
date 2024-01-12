@@ -1,6 +1,6 @@
 import {Response, Request} from 'express'
 import notes from '../models/note'
-import user from '../models/user'
+import label from '../models/label'
 
 export const createNote = async(req: Request, res: Response) =>{
 
@@ -9,22 +9,36 @@ export const createNote = async(req: Request, res: Response) =>{
     const note = await notes.create({title, description, priority, expirationDate, state, idUser})
 
     res.status(200).json({
-        msg: `Nota creada correctamente`
+        msg: `Nota creada correctamente`,
+        note
     }) 
 }
 
 export const cosultNotes = async(req: Request, res: Response)=> {
 
+    const {idUser}=req.body
+    
+    const note= await notes.findAll({
+        attributes:['title', 'description', 'priority', 'expirationDate', 'state'],
+        where:{
+            idUser 
+        }
+    })
+
+    res.status(200).json({
+        msg: " notes ",
+        note
+    })
+}
+
+export const cosultNotesById = async(req: Request, res: Response)=> {
+
     const {id}=req.params
     
     const note= await notes.findAll({
-        attributes:['title', 'description', 'priority', 'expirationDate', 'state', 'idUser'],
-        include:[{
-            model: user,
-            attributes: ['name']
-        }],
+        attributes:['title', 'description', 'priority', 'expirationDate', 'state'],
         where:{
-            id // este id sera el del usuario, para traer todas las notas asociadas a su cuenta
+            id // este id sera el de la nota que deseamos ver
         }
     })
 
@@ -36,15 +50,29 @@ export const cosultNotes = async(req: Request, res: Response)=> {
 
 export const updateNote= async(req: Request, res: Response)=>{
  
-    let {id, userName, email, password, photo} = req.body;
+    let {id, title, description, priority, expirationDate, state} = req.body;
 
-    const users= await user.update({ userName, email, password, photo},{
+    const note= await notes.update({ title, description, priority, expirationDate, state},{
         where:{
             id
         }
     })
      
     res.status(200).json({
-        msg: `Actualizado satisfactoriamente`
+        msg: `Nota actualizada satisfactoriamente`
+    }) 
+}
+
+export const deleteNote = async(req:Request, res:Response)=>{
+
+    const {id}= req.params
+
+    await notes.destroy({
+        where:{
+            id
+        }
+    })
+    res.status(200).json({
+        msg: `La nota se elimino satisfactoriamente`
     }) 
 }
