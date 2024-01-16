@@ -59,7 +59,27 @@ export const updateUser= async(req: Request, res: Response)=>{
     })
      
     res.status(200).json({
-        msg: `Actualizado satisfactoriamente`,
+        msg: `Informacion de usuario actualizada satisfactoriamente`,
+        users
+    }) 
+}
+
+export const updatePassword= async(req: Request, res: Response)=>{
+ 
+    let { id, password } = req.body;
+
+    const salt = bcrypt.genSaltSync()
+    password = bcrypt.hashSync(password, salt)
+    console.log(password)
+
+    const users= await user.update({ password},{
+        where:{
+            id
+        }
+    })
+     
+    res.status(200).json({
+        msg: `contrasena Actualizada satisfactoriamente`,
         users
     }) 
 }
