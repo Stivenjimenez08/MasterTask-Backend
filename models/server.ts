@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import db from '../db/connection';
 import userRoutes from '../routes/User'
 import authRoutes from '../routes/auth'
-import notesRoutes from '../routes/notes'
+import notesRoutes from '../routes/Notes'
 dotenv.config();
 
 class Server{

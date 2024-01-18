@@ -1,7 +1,8 @@
 import {  DataTypes } from 'sequelize';
 import db from '../db/connection';
-import user from './user'
-import label from './label'
+import users from './user'
+import states from './state';
+import prioritys from './priority';
 
 const notes = db.define('note',{
     
@@ -11,22 +12,28 @@ const notes = db.define('note',{
     description:{
         type: DataTypes.STRING
     },
-    priority:{
-        type: DataTypes.STRING
-    },
     expirationDate:{
         type: DataTypes.STRING
     },
-    state:{
-        type: DataTypes.STRING
+    idPriority:{
+        type: DataTypes.BIGINT
+    },
+    idState:{
+        type: DataTypes.BIGINT
     },
     idUser:{
         type: DataTypes.BIGINT
     }
 })
 
-notes.belongsTo( user, {
+notes.belongsTo( users, {
     foreignKey: 'idUser'
+})
+notes.belongsTo( states, {
+    foreignKey: 'idState'
+})
+notes.belongsTo( prioritys, {
+    foreignKey: 'idPriority'
 })
 
 export default notes

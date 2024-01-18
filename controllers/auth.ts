@@ -16,7 +16,7 @@ export const login= async(req: Request, res: Response) =>{
      })
      if (!login){
         return res.status(400).json({
-            msg: 'El usuario no esta registrado'
+            msg: 'The user is not registered'
         })
      }
 
@@ -24,7 +24,7 @@ export const login= async(req: Request, res: Response) =>{
     
      if (!validpassword){
         return res.status(400).json({
-            msg: 'Usuario y/o Contrasena invalido'
+            msg: 'Invalid login or password'
         })
      }
 
@@ -41,11 +41,11 @@ export const login= async(req: Request, res: Response) =>{
     }
 }
 
-// export const logout = (req: Request, res: Response) => {
-//     return res.status(200).json({
-//         msg:"El usuario cerro sesion correctamente"
-//     })
-// }
+export const logout = (req: Request, res: Response) => {
+    return res.status(200).json({
+        msg:"El usuario cerro sesion correctamente"
+    })
+}
 
 export const validateToken = async(req: Request, res: Response) => {
     
@@ -53,10 +53,11 @@ export const validateToken = async(req: Request, res: Response) => {
     console.log('id', id)
 
     const user = await User.findByPk(id)
+    
     if(!user){
         return res.status(200).json({
             user,
-            msg: 'El usuario no existe'
+            msg: 'user not found'
         })
     }
 

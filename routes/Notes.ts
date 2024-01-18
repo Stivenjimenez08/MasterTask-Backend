@@ -3,7 +3,7 @@ import { createNote, cosultNotesById, cosultNotes, updateNote, deleteNote} from 
 const router = Router();
 
 router.get('/consultNoteById/:id', cosultNotesById);
-router.get('/consultNoteByUser', cosultNotes);
+router.get('/consultNoteByUser/:id', cosultNotes);
 router.post('/createNote', createNote);
 router.put('/updateNote', updateNote);
 router.delete('/deleteNote', deleteNote);

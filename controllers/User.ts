@@ -13,7 +13,7 @@ export const createUser = async(req: Request, res: Response) =>{
     })
     if(valemail){
         return res.status(200).json({
-            msg: `el correo ${email} ya ese encuentra registrado`
+            msg: `The email entered is not available`
         }) 
     }
     
@@ -23,7 +23,7 @@ export const createUser = async(req: Request, res: Response) =>{
     const users = await user.create({ names, lastName, userName, email, password})
 
     res.status(200).json({
-        msg: `Registro exitoso`,
+        msg: `successful registration`,
         users
     }) 
 }
@@ -40,7 +40,7 @@ export const userById = async ( req: Request, res: Response ) =>{
         })
     } else {
         res.status(400).json({
-            msg: 'El usuario no existe'
+            msg: 'user not found'
         })
     }
 }
@@ -51,7 +51,7 @@ export const updateUser= async(req: Request, res: Response)=>{
 
     const salt = bcrypt.genSaltSync()
     password = bcrypt.hashSync(password, salt)
-    console.log(password)
+
     const users= await user.update({ names, lastName, userName, email, password, photo},{
         where:{
             id
@@ -59,7 +59,7 @@ export const updateUser= async(req: Request, res: Response)=>{
     })
      
     res.status(200).json({
-        msg: `Informacion de usuario actualizada satisfactoriamente`,
+        msg: `User data updated correctly`,
         users
     }) 
 }
@@ -70,7 +70,6 @@ export const updatePassword= async(req: Request, res: Response)=>{
 
     const salt = bcrypt.genSaltSync()
     password = bcrypt.hashSync(password, salt)
-    console.log(password)
 
     const users= await user.update({ password},{
         where:{
@@ -79,7 +78,7 @@ export const updatePassword= async(req: Request, res: Response)=>{
     })
      
     res.status(200).json({
-        msg: `contrasena Actualizada satisfactoriamente`,
+        msg: `password updated correctly`,
         users
     }) 
 }

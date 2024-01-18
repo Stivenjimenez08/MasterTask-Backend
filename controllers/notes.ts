@@ -1,25 +1,34 @@
 import {Response, Request} from 'express'
 import notes from '../models/note'
-import label from '../models/label'
+import states from '../models/state'
+import prioritys from '../models/priority'
 
 export const createNote = async(req: Request, res: Response) =>{
 
-    let { title, description, priority, expirationDate, state, idUser} = req.body
+    let { title, description, expirationDate, idPriority,  idState, idUser} = req.body
 
-    const note = await notes.create({title, description, priority, expirationDate, state, idUser})
+    const note = await notes.create({title, description, expirationDate, idPriority,  idState, idUser})
 
     res.status(200).json({
-        msg: `Nota creada correctamente`,
+        msg: `note successfully created`,
         note
     }) 
 }
 
 export const cosultNotes = async(req: Request, res: Response)=> {
 
-    const {idUser}=req.body
+    const {idUser}=req.params
     
     const note= await notes.findAll({
-        attributes:['title', 'description', 'priority', 'expirationDate', 'state'],
+        attributes:['title', 'description', 'expirationDate', 'idPriority', 'idState'],
+        include:[{
+            model: states,
+            attributes:['title']
+        },
+        {
+            model: prioritys,
+            attributes:['title']
+        }],
         where:{
             idUser 
         }
@@ -36,7 +45,15 @@ export const cosultNotesById = async(req: Request, res: Response)=> {
     const {id}=req.params
     
     const note= await notes.findAll({
-        attributes:['title', 'description', 'priority', 'expirationDate', 'state'],
+        attributes:['title', 'description', 'expirationDate', 'idPriority', 'idState'],
+        include:[{
+            model: states,
+            attributes:['title']
+        },
+        {
+            model: prioritys,
+            attributes:['title']
+        }],
         where:{
             id // este id sera el de la nota que deseamos ver
         }
@@ -50,16 +67,17 @@ export const cosultNotesById = async(req: Request, res: Response)=> {
 
 export const updateNote= async(req: Request, res: Response)=>{
  
-    let {id, title, description, priority, expirationDate, state} = req.body;
+    let {id, title, description, expirationDate, idPriority,  idState} = req.body;
 
-    const note= await notes.update({ title, description, priority, expirationDate, state},{
+    const note= await notes.update({ title, description, expirationDate, idPriority,  idState},{
         where:{
             id
         }
     })
      
     res.status(200).json({
-        msg: `Nota actualizada satisfactoriamente`
+        note,
+        msg: `correctly updated note`
     }) 
 }
 
@@ -73,6 +91,6 @@ export const deleteNote = async(req:Request, res:Response)=>{
         }
     })
     res.status(200).json({
-        msg: `La nota se elimino satisfactoriamente`
+        msg: `note correctly deleted`
     }) 
 }
