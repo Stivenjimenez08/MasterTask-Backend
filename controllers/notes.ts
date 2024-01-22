@@ -1,7 +1,7 @@
 import {Response, Request} from 'express'
 import notes from '../models/note'
 import states from '../models/state'
-import prioritys from '../models/priority'
+import priorities from '../models/prioritie'
 
 export const createNote = async(req: Request, res: Response) =>{
 
@@ -17,20 +17,45 @@ export const createNote = async(req: Request, res: Response) =>{
 
 export const cosultNotes = async(req: Request, res: Response)=> {
 
-    const {idUser}=req.params
+    const note= await notes.findAll({
+        
+    attributes:['id', 'title', 'description', 'expirationDate', 'idPriority', 'idState'],
+        include:[{
+            model: states,
+            attributes: ['title']
+        },
+        {
+            model: priorities,
+            attributes: ['title']
+        }],
+        where:{
+            idUser: req.params.id
+        }
+    })
+        return res.status(200).json({
+        msg: " notes ",
+        note
+    })
+    
+    
+}
+
+export const cosultNotesById = async(req: Request, res: Response)=> {
+
+    const {id}=req.params
     
     const note= await notes.findAll({
-        attributes:['title', 'description', 'expirationDate', 'idPriority', 'idState'],
+        attributes:['id','title', 'description', 'expirationDate', 'idPriority', 'idState'],
         include:[{
             model: states,
             attributes:['title']
         },
         {
-            model: prioritys,
+            model: priorities,
             attributes:['title']
         }],
         where:{
-            idUser 
+            id 
         }
     })
 
@@ -40,22 +65,43 @@ export const cosultNotes = async(req: Request, res: Response)=> {
     })
 }
 
-export const cosultNotesById = async(req: Request, res: Response)=> {
+export const cosultNotesByPriority = async(req: Request, res: Response)=> {
 
-    const {id}=req.params
-    
     const note= await notes.findAll({
-        attributes:['title', 'description', 'expirationDate', 'idPriority', 'idState'],
+        attributes:['id','title', 'description', 'expirationDate', 'idPriority', 'idState'],
         include:[{
             model: states,
             attributes:['title']
         },
         {
-            model: prioritys,
+            model: priorities,
             attributes:['title']
         }],
         where:{
-            id // este id sera el de la nota que deseamos ver
+            idPriority: req.params.id
+        }
+    })
+
+    res.status(200).json({
+        msg: " notes ",
+        note
+    })
+}
+
+export const cosultNotesByState = async(req: Request, res: Response)=> {
+
+    const note= await notes.findAll({
+        attributes:['id','title', 'description', 'expirationDate', 'idPriority', 'idState'],
+        include:[{
+            model: states,
+            attributes:['title']
+        },
+        {
+            model: priorities,
+            attributes:['title']
+        }],
+        where:{
+            idState: req.params.id 
         }
     })
 

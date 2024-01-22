@@ -1,10 +1,10 @@
 import {  DataTypes } from 'sequelize';
 import db from '../db/connection';
 
-const prioritys = db.define('priority',{
+const priorities = db.define('prioritie',{
     title: {
         type: DataTypes.STRING
     }
 })
 
-export default prioritys
+export default priorities

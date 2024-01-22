@@ -4,7 +4,8 @@ import user from '../models/user'
 
 export const createUser = async(req: Request, res: Response) =>{
 
-    let { names, lastName, userName, email, password} = req.body
+    
+    let { names, lastName, userName, email, password } = req.body
 
     const valemail = await user.findOne({
         where: {
@@ -30,8 +31,8 @@ export const createUser = async(req: Request, res: Response) =>{
 
 export const userById = async ( req: Request, res: Response ) =>{
 
-    // const {id} = req.params
-    const id=1
+    const {id} = req.params
+    
     const users = await user.findByPk(id)
 
     if (users) {

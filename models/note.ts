@@ -2,7 +2,7 @@ import {  DataTypes } from 'sequelize';
 import db from '../db/connection';
 import users from './user'
 import states from './state';
-import prioritys from './priority';
+import priorities from './prioritie';
 
 const notes = db.define('note',{
     
@@ -32,7 +32,7 @@ notes.belongsTo( users, {
 notes.belongsTo( states, {
     foreignKey: 'idState'
 })
-notes.belongsTo( prioritys, {
+notes.belongsTo( priorities, {
     foreignKey: 'idPriority'
 })
 
