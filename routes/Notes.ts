@@ -8,9 +8,9 @@ router.get('/consultNoteByState/:id', cosultNotesByState);
 router.get('/consultNoteByPriority/:id', cosultNotesByPriority);
 
 
+router.delete('/deleteNote/:id', deleteNote);
 router.post('/createNote', createNote);
 router.put('/updateNote', updateNote);
-router.delete('/deleteNote', deleteNote);
 
 router.get('*', ( res: Response ) => {
      res.status(404).json({
