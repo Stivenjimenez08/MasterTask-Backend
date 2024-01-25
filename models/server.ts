@@ -1,11 +1,10 @@
 import express, {Application} from 'express' 
 import cors from 'cors'
-import dotenv from 'dotenv'
 import db from '../db/connection';
 import userRoutes from '../routes/User'
 import authRoutes from '../routes/auth'
 import notesRoutes from '../routes/Notes'
-dotenv.config();
+import { PORT, DB_DATABASE, DB_HOST, DB_PASSWORD, DB_PORT, DB_USER } from '../config';
 
 class Server{
 
@@ -20,7 +19,7 @@ class Server{
 
     constructor(){
         this.app = express();
-        this.port = process.env.PORT;
+        this.port = process.env.PORT;//
         this.dbConnection();
         this.middlewares();
         this.routes(); 
@@ -50,9 +49,10 @@ class Server{
     
     listen(){
         this.app.listen(this.port, ()=>{
-            console.log(`Corriendo el puerto: ${this.port}`);
+            console.log(`Corriendo el puerto: ${PORT}`);
         })
     }
 }
+console.log( DB_DATABASE, DB_HOST, DB_PASSWORD, DB_PORT, DB_USER )
 
 export default Server;
