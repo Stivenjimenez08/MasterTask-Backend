@@ -48,12 +48,9 @@ export const userById = async ( req: Request, res: Response ) =>{
 
 export const updateUser= async(req: Request, res: Response)=>{
  
-    let { names, lastName, id, userName, email, password, photo} = req.body;
+    let { names, lastName, id, userName, email, photo} = req.body;
 
-    const salt = bcrypt.genSaltSync()
-    password = bcrypt.hashSync(password, salt)
-
-    const users= await user.update({ names, lastName, userName, email, password, photo},{
+    const users= await user.update({ names, lastName, userName, email, photo},{
         where:{
             id
         }
