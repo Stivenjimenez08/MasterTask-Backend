@@ -4,7 +4,7 @@ import db from '../db/connection';
 import userRoutes from '../routes/User'
 import authRoutes from '../routes/auth'
 import notesRoutes from '../routes/Notes'
-import { PORT, DB_DATABASE, DB_HOST, DB_PASSWORD, DB_PORT, DB_USER } from '../config';
+import { PORT } from '../config';
 
 class Server{
 
@@ -53,6 +53,5 @@ class Server{
         })
     }
 }
-console.log( DB_DATABASE, DB_HOST, DB_PASSWORD, DB_PORT, DB_USER )
 
 export default Server;
