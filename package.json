@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "Backend de proyecto TaskMaster",
   "main": "index.js",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"nodemon App.ts",
-    "start":"ts-node App.ts"
+    "dev": "nodemon App.ts",
+    "start": "ts-node App.ts"
   },
   "keywords": [
     "TaskMaster"
@@ -31,6 +30,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/node": "^20.10.4",
-    "@types/nodemailer": "^6.4.14"
+    "@types/nodemailer": "^6.4.14",
+    "ts-node": "^10.9.2"
   }
 }
