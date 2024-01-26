@@ -4,7 +4,7 @@ const router = Router();
 
 router.get('/consultNoteByUser/:id', cosultNotes);
 router.get('/consultNoteById/:id', cosultNotesById);
-router.get('/consultNoteByState/:id', cosultNotesByState);
+router.get('/consultNoteByState/:idState/:idUser', cosultNotesByState);
 router.get('/consultNoteByFilter/:idState/:idPriority/:idUser', cosultNotesByFilter);
 
 
