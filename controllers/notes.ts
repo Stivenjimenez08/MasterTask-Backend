@@ -65,7 +65,9 @@ export const cosultNotesById = async(req: Request, res: Response)=> {
     })
 }
 
-export const cosultNotesByPriority = async(req: Request, res: Response)=> {
+export const cosultNotesByFilter = async(req: Request, res: Response)=> {
+
+    const { idState, idPriority, idUser } = req.params;
 
     const note= await notes.findAll({
         attributes:['id','title', 'description', 'expirationDate', 'idPriority', 'idState'],
@@ -78,7 +80,9 @@ export const cosultNotesByPriority = async(req: Request, res: Response)=> {
             attributes:['title']
         }],
         where:{
-            idPriority: req.params.id
+            idState,
+            idPriority,
+            idUser
         }
     })
 

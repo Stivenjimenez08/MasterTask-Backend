@@ -1,11 +1,11 @@
 import { Router, Response } from "express";
-import { createNote, cosultNotesById, cosultNotesByPriority, cosultNotesByState, cosultNotes, updateNote, deleteNote} from "../controllers/notes";
+import { createNote, cosultNotesById, cosultNotesByFilter, cosultNotesByState, cosultNotes, updateNote, deleteNote} from "../controllers/notes";
 const router = Router();
 
 router.get('/consultNoteByUser/:id', cosultNotes);
 router.get('/consultNoteById/:id', cosultNotesById);
 router.get('/consultNoteByState/:id', cosultNotesByState);
-router.get('/consultNoteByPriority/:id', cosultNotesByPriority);
+router.get('/consultNoteByFilter/:idState/:idPriority/:idUser', cosultNotesByFilter);
 
 
 router.delete('/deleteNote/:id', deleteNote);
